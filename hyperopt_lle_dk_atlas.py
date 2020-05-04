@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 space = {
-    'n_neighbors': hp.quniform('n_neighbors', 40, 40000, 20),
+    'n_neighbors': hp.quniform('n_neighbors', 40, 10000, 20),
     'method': hp.choice('method', ['standard', 'hessian', 'modified'])
 }
 

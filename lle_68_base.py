@@ -17,7 +17,7 @@ def get_all_vertices_dk_atlas_w_colors():
         c = np.full(len(lbl.pos), i+1)
         colors = np.append(colors, c)
 
-    return np.float16(pos), colors
+    return np.float16(pos * 1000), colors
 
 def get_all_vertices_lh_w_color():
     labels_lh = [lbl for lbl in labels if lbl.hemi == 'lh']
@@ -52,7 +52,7 @@ def get_centers_of_rois_xy(xy):
         y = xy[start:end,1].mean()
         centers.append((x,y))
         start = end
-    return np.array(centers) * 100
+    return np.array(centers)
 
 def avg_distance_between_center_of_masses(centers):
     distances = np.zeros((len(centers), len(centers)))
