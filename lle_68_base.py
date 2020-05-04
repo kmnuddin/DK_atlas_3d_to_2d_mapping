@@ -1,7 +1,7 @@
 import mne
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.manifold import locally_linear_embedding as LLE
+from sklearn.manifold import LocallyLinearEmbedding as LLE
 from utils import save_json_result, save_2d_roi_map
 from hyperopt import STATUS_OK
 
@@ -17,7 +17,7 @@ def get_all_vertices_dk_atlas_w_colors():
         c = np.full(len(lbl.pos), i+1)
         colors = np.append(colors, c)
 
-    return np.float16(pos * 1000), colors
+    return pos, colors
 
 def get_all_vertices_lh_w_color():
     labels_lh = [lbl for lbl in labels if lbl.hemi == 'lh']
@@ -79,7 +79,8 @@ def lle(space):
     vertices, colors = get_all_vertices_dk_atlas_w_colors()
     print(space)
 
-    lle_xy = LLE(vertices, n_neighbors=n_neighbors, n_components=2, method=method)
+    lle = LLE(n_neighbors=n_neighbors, n_components=2, method=method, neighbors_algorithm='auto')
+    lle_xy = lle.fit_transform(vertices)
 
     centers = get_centers_of_rois_xy(lle_xy)
 

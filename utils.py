@@ -42,10 +42,10 @@ def load_best_hyperspace():
 
 def save_2d_roi_map(lle, colors, centers, name):
     plt.figure()
-    plt.scatter(lle[:,0], lle[:,1], c=colors, cmap=plt.cm.Spectral)
+    plt.scatter(lle[:,0]*1000, lle[:,1]*1000, c=colors, cmap=plt.cm.Spectral)
 
     for i,center in enumerate(centers):
-        plt.annotate(i+1, (center[0],center[1]))
+        plt.annotate(i+1, (center[0]*1000,center[1]*1000))
 
     plt.savefig(os.path.join(img_directory, '{}.png'.format(name)))
 
